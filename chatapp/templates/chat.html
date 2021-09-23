@@ -4,15 +4,21 @@
 
     <div class="container">
         <h1 class="display-5 fw-bold text-white py-3">Welcome, You can start here</h1>
-        <textarea id="chat-log" cols="100" row="20" style="height: 70vh; background: url('https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_960_720.jpg')" disabled></textarea>
+        <div id="outer-canvas">
+            <textarea id="chat-log" cols="100" row="20" style="height: 70vh; background: url('https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_960_720.jpg')" disabled></textarea>
+        </div>
         <input type="text" id="chat-message-input" size="100" onkeydown="enableButton()">
         <input type="button" id="chat-message-submit" class="btn btn-outline-light" value="Send">
         {{ room_name|json_script:"room-name" }}
+        {{ username|json_script:"user-name" }}
     </div>
 
 
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const userName = JSON.parse(document.getElementById('user-name').textContent);
+        console.log(userName);
+        const canvasArea = document.querySelector('#chat-log');
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -25,7 +31,7 @@
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             console.log(e.data);
-            document.querySelector('#chat-log').value += ("> " + data.message + '\n');
+            canvasArea.value += (userName + '>' + data.message + '\n');
         };
 
         chatSocket.onclose = function(e) {
@@ -46,12 +52,13 @@
                 'message': message
             }));
             messageInputDom.value = '';
+            canvasArea.scrollTop = canvasArea.scrollHeight - canvasArea.clientHeight;
         };
 
         function enableButton(){
             var chatMessageBox = document.querySelector('#chat-message-input');
             var chatMessageButton = document.querySelector("#chat-message-submit");
-            if(chatMessageBox.value == ''){
+            if(chatMessageBox.value === ''){
                 chatMessageButton.disabled = true;
             } else {
                 chatMessageButton.disabled = false;
