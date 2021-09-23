@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-dark text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+        <h1 class="display-5 fw-bold text-white">Welcome To the chat support</h1>
+        <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">You can ask any question here, please take care of using abusive words, it will be very great for you and us that you explain your problem or errors in detail, if possible with screenshots.Thank you</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label for="room-name" class="form-label" style="float: left;">Room name</label>
+                        <input type="text" class="form-control" id="room-name" placeholder="Room name" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-name" class="form-label" style="float: left;">Username</label>
+                        <input type="text" class="form-control" id="user-name" placeholder="Username">
+                    </div>   
+                    <input type="button" class="btn btn-outline-light" id="room-submit" value="Enter the room">                 
+                </div>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('#room-submit').onclick = function(e) {
+        var roomName = document.querySelector('#room-name').value;
+        window.location.pathname = '/chat/' + roomName + '/';
+        var username = document.querySelector('#user-name').value;
+        sessionStorage.setItem("username", username);
+    };
+    
+</script>
+
+{% endblock content %}
+
+
