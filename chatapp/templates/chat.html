@@ -5,7 +5,7 @@
     <div class="container">
         <h1 class="display-5 fw-bold text-white py-3">Welcome, You can start here</h1>
         <textarea id="chat-log" cols="100" row="20" style="height: 70vh; background: url('https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_960_720.jpg')" disabled></textarea>
-        <input type="text" id="chat-message-input" size="100">
+        <input type="text" id="chat-message-input" size="100" onkeydown="enableButton()">
         <input type="button" id="chat-message-submit" class="btn btn-outline-light" value="Send">
         {{ room_name|json_script:"room-name" }}
     </div>
@@ -24,7 +24,8 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            console.log(e.data);
+            document.querySelector('#chat-log').value += ("> " + data.message + '\n');
         };
 
         chatSocket.onclose = function(e) {
@@ -46,6 +47,16 @@
             }));
             messageInputDom.value = '';
         };
+
+        function enableButton(){
+            var chatMessageBox = document.querySelector('#chat-message-input');
+            var chatMessageButton = document.querySelector("#chat-message-submit");
+            if(chatMessageBox.value == ''){
+                chatMessageButton.disabled = true;
+            } else {
+                chatMessageButton.disabled = false;
+            }
+        }
     </script>
 
 {% endblock content %}

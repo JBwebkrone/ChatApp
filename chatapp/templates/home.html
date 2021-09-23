@@ -27,11 +27,9 @@
 <script>
     document.querySelector('#room-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name').value;
+        var userName = document.querySelector('#user-name').value;
         window.location.pathname = '/chat/' + roomName + '/';
-        var username = document.querySelector('#user-name').value;
-        sessionStorage.setItem("username", username);
-    };
-    
+    };  
 </script>
 
 {% endblock content %}
