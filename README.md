@@ -16,3 +16,5 @@ Django based live chat support application using Websockets and Channels
 ![image](https://user-images.githubusercontent.com/46815338/134632654-9c24bc7d-4812-4b3e-b176-2d116cf426f6.png)
 
 
+# Chatting
+![image](https://user-images.githubusercontent.com/46815338/134655142-4b563419-d2af-498f-899c-1d90bb2c5c7b.png)
