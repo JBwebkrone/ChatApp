@@ -1,5 +1,5 @@
 # Chat
-Django based live chat support application using Websockets and Channels
+Django based live chat support application using Websockets and Channels, it's fully Anonymous based chat application, where you only have to create room and choose any username and you can start chat.
 
 
 ## How it will work
