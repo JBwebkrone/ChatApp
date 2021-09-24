@@ -1,11 +1,13 @@
+
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Chat Room {% endblock title %}
 {% block content %}
 
     <div class="container">
-        <h1 class="display-5 fw-bold text-white py-3">Welcome, You can start here</h1>
+        <h1 class="display-5 fw-bold text-white py-3">Welcome <u id="uname"></u>, You can start chat here!!!</h1>
         <div id="outer-canvas">
-            <textarea id="chat-log" cols="100" row="20" style="height: 70vh; background: url('https://cdn.pixabay.com/photo/2015/12/03/08/50/paper-1074131_960_720.jpg')" disabled></textarea>
+            <textarea id="chat-log" cols="100" row="20" disabled></textarea>
         </div>
         <input type="text" id="chat-message-input" size="100" onkeydown="enableButton()">
         <input type="button" id="chat-message-submit" class="btn btn-outline-light" value="Send">
@@ -14,10 +16,15 @@
     </div>
 
 
+
+
+
     <script>
+        window.onload = function(){
+            document.querySelector('#uname').innerHTML = USER[0].toUpperCase()+USER.substring(1);
+        }
+
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const userName = JSON.parse(document.getElementById('user-name').textContent);
-        console.log(userName);
         const canvasArea = document.querySelector('#chat-log');
 
         const chatSocket = new WebSocket(
@@ -28,10 +35,18 @@
             + '/'
         );
 
+        // EXTRA
+        const USER = localStorage['username'];
+        let current = new Date();
+        let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+        let cTime = current.getHours() + ":" + current.getMinutes()
+        let dateTime = cDate + ' ' + cTime;
+        // END
+
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             console.log(e.data);
-            canvasArea.value += (userName + '>' + data.message + '\n');
+            canvasArea.value += (`${USER[0].toUpperCase()}${USER.substring(1)}@${dateTime}` + ' : ' + data.message + ' ' + '\n');
         };
 
         chatSocket.onclose = function(e) {
