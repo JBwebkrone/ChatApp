@@ -32,9 +32,9 @@
             'ws://'
             + window.location.host
             + '/ws/chat/'
-            + roomName
+            + roomName.toLowerCase()
             + '/'
-            + userName
+            + userName.toLowerCase()
             + '/'
         );
         console.log(chatSocket);
@@ -48,6 +48,7 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
+
             canvasArea.value += (`${data.username}@${dateTime}` + ' : ' + data.message + ' ' + '\n');
         };
 
