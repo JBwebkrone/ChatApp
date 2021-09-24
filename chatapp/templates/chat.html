@@ -25,6 +25,7 @@
         }
 
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const userName = JSON.parse(document.getElementById('user-name').textContent);
         const canvasArea = document.querySelector('#chat-log');
 
         const chatSocket = new WebSocket(
@@ -33,8 +34,10 @@
             + '/ws/chat/'
             + roomName
             + '/'
+            + userName
+            + '/'
         );
-
+        console.log(chatSocket);
         // EXTRA
         const USER = localStorage['username'];
         let current = new Date();
@@ -45,8 +48,7 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            console.log(e.data);
-            canvasArea.value += (`${USER[0].toUpperCase()}${USER.substring(1)}@${dateTime}` + ' : ' + data.message + ' ' + '\n');
+            canvasArea.value += (`${data.username}@${dateTime}` + ' : ' + data.message + ' ' + '\n');
         };
 
         chatSocket.onclose = function(e) {
@@ -64,7 +66,8 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'username': userName,
             }));
             messageInputDom.value = '';
             canvasArea.scrollTop = canvasArea.scrollHeight - canvasArea.clientHeight;

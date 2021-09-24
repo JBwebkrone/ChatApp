@@ -29,7 +29,7 @@
     document.querySelector('#room-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name').value;
         var userName = document.querySelector('#user-name').value;
-        window.location.pathname = '/chat/' + roomName + '/';
+        window.location.pathname = '/chat/' + roomName + '/' + selectUsername.value + '/';
         localStorage.setItem('username', userName);
     };
     var selectUsername = document.querySelector('#user-name');
