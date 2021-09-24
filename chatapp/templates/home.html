@@ -29,8 +29,13 @@
     document.querySelector('#room-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name').value;
         var userName = document.querySelector('#user-name').value;
-        window.location.pathname = '/chat/' + roomName + '/' + selectUsername.value + '/';
-        localStorage.setItem('username', userName);
+        if(roomName.length === 0 || userName.length === 0){
+            alert('Both fields are required, Empty values not allowed!');
+            
+        } else{
+            window.location.pathname = '/chat/' + roomName + '/' + selectUsername.value + '/';
+            localStorage.setItem('username', userName);
+        }
     };
     var selectUsername = document.querySelector('#user-name');
     selectUsername.addEventListener('keyup', function(event){
