@@ -18,4 +18,4 @@ docker run -p 6379:6379 -d redis:5
 
 ![image](https://user-images.githubusercontent.com/46815338/134632654-9c24bc7d-4812-4b3e-b176-2d116cf426f6.png)
 
->>>>>>> 6f34364a4ca86fe4fbd804db2e018aa0fdc3fd99
+
